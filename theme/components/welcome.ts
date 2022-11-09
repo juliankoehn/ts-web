@@ -7,7 +7,6 @@ export const Welcome = helpers.defineMultiStyleConfig({
   baseStyle: {
     container: {
       position: "relative",
-      zIndex: 2,
       overflow: "hidden",
       minH: "100vh",
       bg: "#00b9ff",

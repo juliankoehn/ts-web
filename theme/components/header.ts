@@ -1,50 +1,16 @@
 import { createMultiStyleConfigHelpers } from "@chakra-ui/react";
 
 // This function creates a set of function that helps us create multipart component styles.
-const helpers = createMultiStyleConfigHelpers([
-  "outer",
-  "container",
-  "wrapper",
-]);
+const helpers = createMultiStyleConfigHelpers(["container", "wrapper"]);
 
 export const Header = helpers.defineMultiStyleConfig({
   baseStyle: {
-    outer: {
-      zIndex: 1,
-      ".headroom-wrapper": {
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-      },
-      ".headroom": {
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-        bg: "transparent",
-      },
-      ".headroom--unfixed": {
-        position: "relative",
-        transform: "translateY(0)",
-      },
-      ".headroom--scrolled": {
-        transition: "transform 200ms ease-in-out",
-        bg: "black",
-      },
-      ".headroom--unpinned": {
-        position: "fixed",
-        transform: "translateY(-100%)",
-      },
-      ".headroom--pinned": {
-        position: "fixed",
-        transform: "translateY(0%)",
-      },
-    },
     container: {
       width: "100%",
+      position: "fixed",
       zIndex: 5,
+      left: 0,
+      right: 0,
       alignItems: "center",
       justifyContent: "space-between",
       ".header__overlay": {

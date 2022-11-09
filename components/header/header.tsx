@@ -8,14 +8,14 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { Logo } from "../logo/logo";
-import { NAVIGATION_HEIGHT } from "./const";
 import { useLockBodyScroll } from "react-use";
 import { Hamburger } from "./hamburger";
 import { Navigation } from "./navigation/navigation";
 import Link from "next/link";
-import Headroom from "react-headroom";
+import { useRouter } from "next/router";
 
 export const Header: React.FC = (props) => {
+  const router = useRouter();
   const { isOpen, onToggle, onClose } = useDisclosure();
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -58,31 +58,36 @@ export const Header: React.FC = (props) => {
     };
   }, [isOpen, onClose]);
 
+  useEffect(() => {
+    router.events.on("routeChangeStart", onClose);
+
+    return () => router.events.off("routeChangeStart", onClose);
+  }, [onClose, router.events]);
+
   const containerStyles: SystemStyleObject = {
     ...styles.container,
+    zIndex: 100,
   };
 
   return (
-    <Box __css={styles.outer}>
-      <Headroom disableInlineStyles>
-        <Box role="banner" __css={containerStyles}>
-          <Box __css={styles.wrapper}>
-            <Container
-              maxW="7xl"
-              alignItems="center"
-              display="flex"
-              justifyContent="space-between"
-            >
-              <Link href="/">
-                <Logo isDark={isOpen} />
-              </Link>
-              <Flex alignItems="center">
-                <Hamburger isOpen={isOpen} onClick={onToggle} />
-              </Flex>
-            </Container>
-          </Box>
+    <Box position="static">
+      <Box role="banner" __css={containerStyles}>
+        <Box __css={styles.wrapper}>
+          <Container
+            maxW="7xl"
+            alignItems="center"
+            display="flex"
+            justifyContent="space-between"
+          >
+            <Link href="/">
+              <Logo isDark={isOpen} />
+            </Link>
+            <Flex alignItems="center">
+              <Hamburger isOpen={isOpen} onClick={onToggle} />
+            </Flex>
+          </Container>
         </Box>
-      </Headroom>
+      </Box>
       <Navigation isOpen={isOpen} />
     </Box>
   );

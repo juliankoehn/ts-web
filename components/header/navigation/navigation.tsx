@@ -4,10 +4,12 @@ import {
   Grid,
   GridItem,
   SimpleGrid,
+  Stack,
   SystemStyleObject,
   useMultiStyleConfig,
 } from "@chakra-ui/react";
 import { motion, Variants } from "framer-motion";
+import Link from "next/link";
 import React, { memo } from "react";
 import { AddressBlock } from "../../address-block/address-block";
 
@@ -50,8 +52,12 @@ export const Navigation: React.FC<NavigationProps> = (props) => {
           <NavigationOuter isOpen={isOpen}>
             <chakra.div __css={styles.inner}>
               <Grid templateColumns="repeat(12, 1fr)" gap={4} width="100%">
-                <GridItem colSpan={8} bg="tomato">
-                  left
+                <GridItem colSpan={8}>
+                  <Stack>
+                    <Link href="/">Home</Link>
+                    <Link href="/cases">Cases</Link>
+                    <Link href="/hello">Say Hello</Link>
+                  </Stack>
                 </GridItem>
                 <GridItem colSpan={4}>
                   <AddressBlock />
