@@ -1,19 +1,15 @@
 import {
-  Box,
   chakra,
   Container,
   createStylesContext,
-  Flex,
   HTMLChakraProps,
   SimpleGrid,
   Stack,
   SystemStyleObject,
   useMultiStyleConfig,
-  useStyleConfig,
 } from "@chakra-ui/react";
-import { motion, Variants } from "framer-motion";
 import React from "react";
-import { fadeIn, staggerContainer } from "../../animations/variants";
+import { FadeIn } from "../../animations/fade-in";
 
 const [StylesProvider, useStyles] = createStylesContext("CaseDetail");
 
@@ -63,36 +59,40 @@ const Info: React.FC<InfoProps> = (props) => {
   const styles = useStyles();
 
   return (
-    <chakra.div
-      as={motion.div}
-      variants={fadeIn()}
-      __css={styles.headerBlockBottom}
-    >
+    <chakra.div __css={styles.headerBlockBottom}>
       <SimpleGrid columns={[1, 1, 3]} gap="4">
-        <Stack spacing="1" as={motion.div} variants={fadeIn()}>
-          <chakra.div __css={styles.headerBlockBottomTitle}>
-            Services
-          </chakra.div>
-          <chakra.div
-            as={motion.div}
-            variants={fadeIn()}
-            __css={styles.headerBlockBottomDescription}
-          >
-            {services.join(", ")}
-          </chakra.div>
-        </Stack>
-        <Stack spacing="1" as={motion.div} variants={fadeIn()}>
-          <chakra.div __css={styles.headerBlockBottomTitle}>Client</chakra.div>
-          <chakra.div __css={styles.headerBlockBottomDescription}>
-            {client}
-          </chakra.div>
-        </Stack>
-        <Stack spacing="1" as={motion.div} variants={fadeIn()}>
-          <chakra.div __css={styles.headerBlockBottomTitle}>Sector</chakra.div>
-          <chakra.div __css={styles.headerBlockBottomDescription}>
-            {sector}
-          </chakra.div>
-        </Stack>
+        <FadeIn>
+          <Stack spacing="1">
+            <chakra.div __css={styles.headerBlockBottomTitle}>
+              Services
+            </chakra.div>
+            <FadeIn>
+              <chakra.div __css={styles.headerBlockBottomDescription}>
+                {services.join(", ")}
+              </chakra.div>
+            </FadeIn>
+          </Stack>
+        </FadeIn>
+        <FadeIn>
+          <Stack spacing="1">
+            <chakra.div __css={styles.headerBlockBottomTitle}>
+              Client
+            </chakra.div>
+            <chakra.div __css={styles.headerBlockBottomDescription}>
+              {client}
+            </chakra.div>
+          </Stack>
+        </FadeIn>
+        <FadeIn>
+          <Stack spacing="1">
+            <chakra.div __css={styles.headerBlockBottomTitle}>
+              Sector
+            </chakra.div>
+            <chakra.div __css={styles.headerBlockBottomDescription}>
+              {sector}
+            </chakra.div>
+          </Stack>
+        </FadeIn>
       </SimpleGrid>
     </chakra.div>
   );
@@ -105,35 +105,19 @@ const CaseHeader: React.FC<CaseHeaderProps> = (props) => {
   const styles = useStyles();
 
   return (
-    <Container
-      as={motion.div}
-      variants={staggerContainer}
-      initial="initial"
-      animate="animate"
-      flex="1"
-      maxW="7xl"
-      display="flex"
-      flexDir="column"
-      width="100%"
-    >
+    <Container flex="1" maxW="7xl" display="flex" flexDir="column" width="100%">
       <chakra.div __css={styles.headerBlockMain}>
         <chakra.div __css={styles.headerBlockTop}>
           <chakra.div __css={styles.headerBlockSubtitleWrapper}>
-            <chakra.div
-              as={motion.div}
-              variants={fadeIn()}
-              __css={styles.headerBlockSubtitle}
-            >
-              Project
-            </chakra.div>
+            <FadeIn>
+              <chakra.div __css={styles.headerBlockSubtitle}>
+                Project
+              </chakra.div>
+            </FadeIn>
           </chakra.div>
-          <chakra.h1
-            as={motion.h1}
-            variants={fadeIn()}
-            __css={styles.headerBlockTitle}
-          >
-            {project}
-          </chakra.h1>
+          <FadeIn>
+            <chakra.h1 __css={styles.headerBlockTitle}>{project}</chakra.h1>
+          </FadeIn>
         </chakra.div>
 
         <Info {...props} />
