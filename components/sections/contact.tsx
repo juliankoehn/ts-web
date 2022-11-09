@@ -28,6 +28,8 @@ import React, { useRef } from "react";
 import { CheckboxCard, CheckboxCardGroup } from "../form/checkbox-card";
 import { RadioCard, RadioCardGroup } from "../atoms/radio-card/radio-card";
 import { AddressBlock } from "../address-block/address-block";
+import { useInView } from "react-intersection-observer";
+import { FadeIn } from "../../animations/fade-in";
 
 type Budget = {
   label: string;
@@ -112,8 +114,9 @@ const budgets: Budget[] = [
 ];
 
 export const Contact: React.FC = () => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-  const inView = true;
+  const [containerRef, inView] = useInView({
+    threshold: 0.1,
+  });
 
   const styles = useMultiStyleConfig("Contact");
   return (
@@ -131,79 +134,96 @@ export const Contact: React.FC = () => {
           alignItems="center"
           justifyContent="space-between"
         >
-          <ScaleFade in={inView}>
+          <FadeIn>
             <Heading sx={styles.title} maxW="320px">
               Projekt im Sinn? Lass uns reden.
             </Heading>
-          </ScaleFade>
+          </FadeIn>
         </Flex>
       </Container>
-      <ParallaxText baseVelocity={-5}>Tell Us about your project</ParallaxText>
-      <ParallaxText baseVelocity={5}>about your project</ParallaxText>
+      <FadeIn>
+        <ParallaxText baseVelocity={-5}>
+          Tell Us about your project
+        </ParallaxText>
+        <ParallaxText baseVelocity={5}>about your project</ParallaxText>
+      </FadeIn>
       <Box py={12}>
         <Container maxW="7xl">
           <Grid templateColumns="repeat(12, 1fr)" gap={6}>
             <GridItem colSpan={6}>
-              <Stack spacing={6} mb={8}>
-                <Heading fontSize="3xl">
-                  Hilf uns, dein Projekt zu verstehen
-                </Heading>
-                <SimpleGrid columns={2} spacing={6}>
-                  <FormControl>
-                    <Input variant="flushed" placeholder="First Name" />
-                  </FormControl>
-                  <FormControl>
-                    <Input variant="flushed" placeholder="Last Name" />
-                  </FormControl>
-                </SimpleGrid>
+              <FadeIn>
+                <Stack spacing={6} mb={8}>
+                  <Heading fontSize="3xl">
+                    Hilf uns, dein Projekt zu verstehen
+                  </Heading>
 
-                <FormControl>
-                  <Input variant="flushed" placeholder="Email" type="email" />
-                </FormControl>
-              </Stack>
-              <Stack spacing={6}>
-                <Heading fontSize="2xl">Deine Nachricht</Heading>
-                <Textarea
-                  variant="flushed"
-                  placeholder="Erzähl uns etwas über dein Projekt..."
-                />
-              </Stack>
+                  <SimpleGrid columns={2} spacing={6}>
+                    <FormControl>
+                      <Input variant="flushed" placeholder="First Name" />
+                    </FormControl>
+                    <FormControl>
+                      <Input variant="flushed" placeholder="Last Name" />
+                    </FormControl>
+                  </SimpleGrid>
+
+                  <FormControl>
+                    <Input variant="flushed" placeholder="Email" type="email" />
+                  </FormControl>
+                </Stack>
+              </FadeIn>
+              <FadeIn>
+                <Stack spacing={6}>
+                  <Heading fontSize="2xl">Deine Nachricht</Heading>
+                  <Textarea
+                    variant="flushed"
+                    placeholder="Erzähl uns etwas über dein Projekt..."
+                  />
+                </Stack>
+              </FadeIn>
             </GridItem>
             <GridItem colStart={8} colSpan={4}>
-              <AddressBlock />
+              <FadeIn>
+                <AddressBlock />
+              </FadeIn>
             </GridItem>
             <GridItem colSpan={12}>
-              <Heading mb={4}>
-                Wie k&ouml;nnen wir dich Unterst&uuml;tzen?
-              </Heading>
-              <CheckboxCardGroup defaultValue={[]} spacing="3">
-                {assistants.map((assistant) => (
-                  <CheckboxCard key={assistant.value} value={assistant.value}>
-                    {assistant.label}
-                  </CheckboxCard>
-                ))}
-              </CheckboxCardGroup>
+              <FadeIn>
+                <Heading mb={4}>
+                  Wie k&ouml;nnen wir dich Unterst&uuml;tzen?
+                </Heading>
+                <CheckboxCardGroup defaultValue={[]} spacing="3">
+                  {assistants.map((assistant) => (
+                    <CheckboxCard key={assistant.value} value={assistant.value}>
+                      {assistant.label}
+                    </CheckboxCard>
+                  ))}
+                </CheckboxCardGroup>
+              </FadeIn>
             </GridItem>
             <GridItem colSpan={12}>
-              <Heading mb={4}>Budget Range</Heading>
-              <RadioCardGroup columns={[1, 4]} spacing="3">
-                {budgets.map((budget) => (
-                  <RadioCard
-                    key={budget.label}
-                    value={budget.label}
-                    tooltip={budget.tooltip}
-                    description={budget.description}
-                    price={budget.price}
-                  >
-                    {budget.label}
-                  </RadioCard>
-                ))}
-              </RadioCardGroup>
+              <FadeIn>
+                <Heading mb={4}>Budget Range</Heading>
+                <RadioCardGroup columns={[1, 4]} spacing="3">
+                  {budgets.map((budget) => (
+                    <RadioCard
+                      key={budget.label}
+                      value={budget.label}
+                      tooltip={budget.tooltip}
+                      description={budget.description}
+                      price={budget.price}
+                    >
+                      {budget.label}
+                    </RadioCard>
+                  ))}
+                </RadioCardGroup>
+              </FadeIn>
             </GridItem>
             <GridItem colSpan={12}>
-              <Button size="2xl" variant="primary">
-                Senden
-              </Button>
+              <FadeIn>
+                <Button size="2xl" variant="primary">
+                  Senden
+                </Button>
+              </FadeIn>
             </GridItem>
           </Grid>
         </Container>
