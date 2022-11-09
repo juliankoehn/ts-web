@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
-    appDir: true,
+    appDir: false,
     fontLoaders: [
       { loader: "@next/font/google", options: { subsets: ["latin"] } },
     ],

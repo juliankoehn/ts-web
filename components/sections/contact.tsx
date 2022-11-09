@@ -17,7 +17,6 @@ import {
 import {
   motion,
   useAnimationFrame,
-  useInView,
   useMotionValue,
   useScroll,
   useSpring,
@@ -114,7 +113,7 @@ const budgets: Budget[] = [
 
 export const Contact: React.FC = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const inView = useInView(containerRef);
+  const inView = true;
 
   const styles = useMultiStyleConfig("Contact");
   return (
