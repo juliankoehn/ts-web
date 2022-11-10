@@ -150,7 +150,7 @@ export const Contact: React.FC = () => {
       <Box py={12}>
         <Container maxW="7xl">
           <Grid templateColumns="repeat(12, 1fr)" gap={6}>
-            <GridItem colSpan={6}>
+            <GridItem colSpan={[12, 6]}>
               <FadeIn>
                 <Stack spacing={6} mb={8}>
                   <Heading fontSize="3xl">
@@ -159,29 +159,36 @@ export const Contact: React.FC = () => {
 
                   <SimpleGrid columns={2} spacing={6}>
                     <FormControl>
-                      <Input variant="flushed" placeholder="First Name" />
+                      <Input placeholder="Vorname" />
                     </FormControl>
                     <FormControl>
-                      <Input variant="flushed" placeholder="Last Name" />
+                      <Input placeholder="Nachname" />
                     </FormControl>
                   </SimpleGrid>
 
                   <FormControl>
-                    <Input variant="flushed" placeholder="Email" type="email" />
+                    <Input placeholder="Email" type="email" />
+                  </FormControl>
+                  <FormControl>
+                    <Input placeholder="Telefon" type="tel" />
                   </FormControl>
                 </Stack>
               </FadeIn>
               <FadeIn>
                 <Stack spacing={6}>
                   <Heading fontSize="2xl">Deine Nachricht</Heading>
-                  <Textarea
-                    variant="flushed"
-                    placeholder="Erzähl uns etwas über dein Projekt..."
-                  />
+                  <Textarea placeholder="Erzähl uns etwas über dein Projekt..." />
                 </Stack>
               </FadeIn>
             </GridItem>
-            <GridItem colStart={8} colSpan={4}>
+            <GridItem
+              colStart={8}
+              colSpan={4}
+              display={{
+                base: "none",
+                md: "flex",
+              }}
+            >
               <FadeIn>
                 <AddressBlock />
               </FadeIn>
@@ -294,7 +301,10 @@ const ParallaxText: React.FC<ParallaxTextProps> = (props) => {
         ".scroller": {
           fontWeight: 600,
           textTransform: "uppercase",
-          fontSize: "64px",
+          fontSize: {
+            base: "2xl",
+            md: "6xl",
+          },
           whiteSpace: "nowrap",
           display: "flex",
           flexWrap: "nowrap",

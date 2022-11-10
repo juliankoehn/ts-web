@@ -12,6 +12,8 @@ import { Welcome } from "./components/welcome";
 import { Fira_Mono } from "@next/font/google";
 import { Button } from "./components/button";
 import { RadioCard } from "./components/radio-card";
+import { inputTheme } from "./components/input";
+import { textareaTheme } from "./components/textarea";
 
 const yellow = {
   "50": "#FEF8E6",
@@ -75,5 +77,7 @@ export const theme = extendTheme({
     Navigation,
     Welcome,
     RadioCard,
+    Input: inputTheme,
+    Textarea: textareaTheme,
   },
 });

@@ -88,7 +88,7 @@ export const Header: React.FC = (props) => {
           </Container>
         </Box>
       </Box>
-      <Navigation isOpen={isOpen} />
+      <Navigation isOpen={isOpen} onCloseComplete={onClose} />
     </Box>
   );
 };

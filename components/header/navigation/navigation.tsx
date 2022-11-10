@@ -3,12 +3,13 @@ import {
   createStylesContext,
   Grid,
   GridItem,
+  Portal,
   SimpleGrid,
   Stack,
   SystemStyleObject,
   useMultiStyleConfig,
 } from "@chakra-ui/react";
-import { motion, Variants } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import Link from "next/link";
 import React, { memo } from "react";
 import { AddressBlock } from "../../address-block/address-block";
@@ -17,57 +18,68 @@ const [StylesProvider, useStyles] = createStylesContext("Navigation");
 
 export interface NavigationProps {
   isOpen: boolean;
+  onCloseComplete: () => void;
 }
 
 export const Navigation: React.FC<NavigationProps> = (props) => {
-  const { isOpen } = props;
+  const { isOpen, onCloseComplete } = props;
 
   const styles = useMultiStyleConfig("Navigation");
 
   return (
     <StylesProvider value={styles}>
-      <chakra.div
-        as={motion.div}
-        initial={{
-          opacity: 0,
-          visibility: "hidden",
-          pointerEvents: "none",
-        }}
-        animate={
-          isOpen
-            ? {
-                opacity: 1,
-                visibility: "visible",
-                pointerEvents: "all",
-              }
-            : {
-                opacity: 0,
-                visibility: "hidden",
-                pointerEvents: "none",
-              }
-        }
-        __css={styles.container}
-      >
-        <NavigationBody isOpen={isOpen}>
-          <NavigationOuter isOpen={isOpen}>
-            <chakra.div __css={styles.inner}>
-              <Grid templateColumns="repeat(12, 1fr)" gap={4} width="100%">
-                <GridItem colSpan={8}>
-                  <Stack>
-                    <Link href="/">Home</Link>
-                    <Link href="/cases">Cases</Link>
-                    <Link href="/hello">Say Hello</Link>
-                  </Stack>
-                </GridItem>
-                <GridItem colSpan={4}>
-                  <AddressBlock />
-                </GridItem>
-              </Grid>
-            </chakra.div>
-          </NavigationOuter>
-          <NavigationRects count={4} isOpen={isOpen} />
-        </NavigationBody>
-      </chakra.div>
+      <AnimatePresence onExitComplete={onCloseComplete}>
+        <Portal>
+          <chakra.div
+            as={motion.div}
+            initial={{
+              opacity: 0,
+              visibility: "hidden",
+              pointerEvents: "none",
+            }}
+            animate={
+              isOpen
+                ? {
+                    opacity: 1,
+                    visibility: "visible",
+                    pointerEvents: "all",
+                  }
+                : {
+                    opacity: 0,
+                    visibility: "hidden",
+                    pointerEvents: "none",
+                  }
+            }
+            __css={styles.container}
+          >
+            <NavigationBody isOpen={isOpen}>
+              <NavigationOuter isOpen={isOpen}>
+                <chakra.div __css={styles.inner}>
+                  <Grid templateColumns="repeat(12, 1fr)" gap={4} width="100%">
+                    <GridItem colSpan={[12, 8]}>
+                      <Stack>
+                        <Link href="/">Home</Link>
+                        <Link href="/cases">Cases</Link>
+                        <Link href="/hello">Say Hello</Link>
+                      </Stack>
+                    </GridItem>
+                    <GridItem
+                      colSpan={[0, 4]}
+                      display={{
+                        base: "none",
+                        md: "block",
+                      }}
+                    >
+                      <AddressBlock />
+                    </GridItem>
+                  </Grid>
+                </chakra.div>
+              </NavigationOuter>
+              <NavigationRects count={4} isOpen={isOpen} />
+            </NavigationBody>
+          </chakra.div>
+        </Portal>
+      </AnimatePresence>
     </StylesProvider>
   );
 };
