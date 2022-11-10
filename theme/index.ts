@@ -51,6 +51,7 @@ export const theme = extendTheme({
       "html, body": {
         bg: "white",
         color: "black",
+        cursor: "none !important",
       },
     },
   },
