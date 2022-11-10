@@ -1,26 +1,18 @@
 import { Box, Container } from "@chakra-ui/react";
 import Head from "next/head";
+import { Cases } from "../components/cases";
+import { Contact } from "../components/sections/contact";
 import { Welcome } from "../components/sections/welcome";
+import { Why } from "../components/sections/why";
 
 export default function Home() {
   return (
     <>
       <Welcome pt="80px" />
-      <div>
-        <Container maxW="7xl">
-          <Box py="3.5rem">
-            <Box as="h1">
-              <span>Plan.</span>
-              <span>Code.</span>
-              <span>Ship.</span>
-            </Box>
-            <Box as="h2">
-              teamspiel is a digital product studio that helps companies build
-              products that people love.
-            </Box>
-          </Box>
-        </Container>
-      </div>
+      <Cases />
+      <section>
+        <Contact />
+      </section>
     </>
   );
 }
